@@ -19,6 +19,7 @@ const o5$ = new Observable((subscriber: Subscriber<number>) => {
     const timeout = setTimeout(() => {
         console.log('emitting 5');
         subscriber.next(5);
+        // subscriber.error('DivideByZeroException');
         subscriber.complete();
     }, 5000);
     return () => {
@@ -40,6 +41,7 @@ const o3$ = new Observable((subscriber: Subscriber<number>) => {
 
 // Ejecuta en orden secuencial los observables suministrados
 // Para ejecutar el segundo observable, el primer observable debe completar, y así sucesivamente.
+//  Si completa con error no se llamará al siguiente observable.
 // En cuanto a la emisión, concat emite tan pronto recibe valores, no espera a que el observable que se esté ejecutando esté completado.
 // Caso de uso
 //  Secuencia de acciones con acoplamiento temporal y que requieren ordenación. 
@@ -47,6 +49,8 @@ const o3$ = new Observable((subscriber: Subscriber<number>) => {
 
 concat(o1$, o5$, o3$).subscribe((n) => {
     console.log(n);
+}, (err) => {
+    console.log('err ' + err);
 });
 
 // o1$ executing

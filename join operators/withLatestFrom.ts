@@ -4,8 +4,6 @@ import { Observable, Subscriber } from 'rxjs';
 const o1$ = new Observable((subscriber: Subscriber<number>) => {
     console.log('o1$ executing');
     let i = 0;
-    // console.log(`emitting o1$ ${i}`);
-    // subscriber.next(i);
     const interval = setInterval(() => {
         console.log(`emitting o1$ ${++i}`);
         subscriber.next(i);
@@ -42,6 +40,10 @@ const o2$ = new Observable((subscriber: Subscriber<string>) => {
 // y el nuevo observable emite sólo cuando el source observable emite
 // Si se completa el source observable, se completa automáticamente el inner observable
 // Si se completa el inner observable, el source seguirá emitiendo y como último valor del inner siempre cojerá el último emitido por inner
+
+// Caso de uso... pues ahora mismo no caigo... sólo sé que cuando emita el source (outer) recibiré un valor 
+// con la suma de el valor emitido por source (el último, esto es lógico, es quien provocó que withLatestFrom emita) 
+// y con el último valor del inner (que me da igual que esté o no completado)
 o1$.pipe(
     withLatestFrom(o2$)
 ).subscribe(value => {

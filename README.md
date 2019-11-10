@@ -1,0 +1,14 @@
+- join creation operators
+    - combineLatest
+    - concat
+    - forkJoin
+    - merge
+    - race
+    - zip
+- join operators
+    - withLatestFrom
+- transformation operators
+    - mergeMap
+    - mergeMapTo
+    - switchMap
+    - switchMapTo
